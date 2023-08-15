@@ -1,0 +1,45 @@
+@import "../abstracts/variables.scss";
+
+.header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  padding: 10px;
+  .header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    .logo {
+      width: 33%;
+    }
+    .nav-items {
+      ul {
+        display: flex;
+        gap: 25px;
+        li {
+          font-weight: bold;
+          list-style: none;
+          margin: 0 10px;
+          color: $gray-700;
+        }
+        .selected {
+          color: $color-blue;
+        }
+      }
+      width: 33%;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      width: 33%;
+      a {
+        color: $gray-700;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 17px;
+      }
+    }
+  }
+}

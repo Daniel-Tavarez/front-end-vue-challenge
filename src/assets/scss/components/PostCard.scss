@@ -1,0 +1,13 @@
+.blog-post-content {
+  width: 100%;
+  .post-card {
+    width: 100%;
+    position: relative;
+    .floating-info {
+        width: 100%;
+      position: absolute;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

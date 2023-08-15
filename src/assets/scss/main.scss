@@ -1,0 +1,11 @@
+@import "./components/imports.scss";
+@import "./views/imports.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $background;
+}
+* {
+  font-family: Roboto;
+}
