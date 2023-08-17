@@ -1,10 +1,38 @@
 .home-view {
-  .searcher-wrapper {
-  }
+  // .searcher-wrapper {
+  // }
   .blog-posts-wrapper {
     margin: 50px 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 30px;
+  }
+  .load-more {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    button {
+      width: 60%;
+      min-width: 300px;
+      color: $color-blue;
+      font-weight: bold;
+      border-radius: 10px;
+      font-size: 22px;
+      border: 2px solid $gray-300;
+      padding: 20px 0;
+      background-color: transparent;
+      position: relative;
+      cursor: pointer;
+      &::after {
+        content: "";
+        background-image: url("../img/arrow-right.svg");
+        background-size: cover;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        right: 30px;
+        top: 26px;
+      }
+    }
   }
 }

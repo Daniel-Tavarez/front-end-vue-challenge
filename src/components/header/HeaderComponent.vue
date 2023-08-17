@@ -8,13 +8,30 @@
       </div>
       <div class="nav-items">
         <ul>
-          <li class="selected">Articles</li>
-          <li>Favorites</li>
+          <li
+            @click="store.dispatch(Action.SetShowOnlyFavorites, false)"
+            class="selected">
+            Articles
+          </li>
+          <li @click="showFavorites()">Favorites</li>
         </ul>
       </div>
       <div class="action-buttons">
-        <router-link to="/login">Login</router-link>
+        <button @click="store.commit(Mutation.toogleLoginModalShow)">
+          Login
+        </button>
       </div>
     </div>
   </header>
 </template>
+
+<script setup lang="ts">
+import { store } from "@/store";
+import { Action, Mutation } from "@/store/types";
+
+function showFavorites() {
+  store.state.logged
+    ? store.dispatch(Action.SetShowOnlyFavorites, true)
+    : store.commit(Mutation.toogleLoginModalShow);
+}
+</script>

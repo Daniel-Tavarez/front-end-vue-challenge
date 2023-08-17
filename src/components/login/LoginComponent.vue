@@ -1,56 +1,72 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="login-view" v-if="store.state.showLoginModal">
+    <div class="login-wrapper-component animate__animated animate__fadeInDown">
+      <button class="close-modal-button" @click="closeModal()"></button>
+      <div class="left-image">
+        <img src="../../assets/img/login-side-image.png" alt="" />
+      </div>
+      <div class="right-form">
+        <div class="sign-in-title">
+          <h2>{{signUp ? 'Sign Up' : 'Sign In'}}</h2>
+        </div>
+        <div class="slogan">
+          <h4>Simplify your reading in minutes.</h4>
+        </div>
+        <div class="form-inputs">
+          <div class="input">
+            <input v-model="email" class="field" type="email" placeholder="Your email" />
+          </div>
+          <div class="input" v-if="signUp">
+            <input v-model="fullName" class="field" type="text" placeholder="Full name" />
+          </div>
+          <div class="input">
+            <input v-model="password" class="field" type="password" placeholder="Password" />
+          </div>
+        </div>
+        <div class="sign-in-button">
+          <button @click="signUp ? signUpFc() : login()">{{signUp ? 'Sign Up' : 'Sign In'}}</button>
+        </div>
+        <div class="signUp">
+          <h5 v-if="!signUp">Not here? <span @click="signUpOrlogin()">Sign up!</span></h5>
+          <h5 v-else>Been here? <span @click="signUpOrlogin()">Sign In!</span></h5>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+<script setup lang="ts">
+import { store } from '@/store';
+import { Mutation } from '@/store/types';
+import { ref } from "vue";
 
-<script setup>
-import { ref } from 'vue';
+const signUp = ref(false);
+const email = ref('');
+const fullName = ref('');
+const password = ref('');
 
-const msg = ref('Welcome to Your Vue.js App');
+function login(){
+  const userData = {
+    email: email.value,
+    password: password.value
+  };
+  console.log('Logging in with user data:', userData);
+}
+
+function signUpFc(){
+  const userData = {
+    email: email.value,
+    fullName: fullName.value,
+    password: password.value
+  };
+  console.log('Signing up with user data:', userData);
+}
+
+function signUpOrlogin(){
+  signUp.value = !signUp.value;
+}
+
+function closeModal(){
+  return store.commit(Mutation.toogleLoginModalShow);
+}
 
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

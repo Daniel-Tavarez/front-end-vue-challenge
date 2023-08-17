@@ -1,6 +1,5 @@
 import BlogDetail from '@/views/BlogDetail/BlogDetailView.vue';
 import Home from '@/views/Home/HomeView.vue';
-import Login from '@/views/Login/LoginView.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -10,10 +9,6 @@ const routes = [
       {
         path: '',
         component: Home,
-      },
-      {
-        path: 'login',
-        component: Login,
       },
       {
         path: 'blog/:id',
