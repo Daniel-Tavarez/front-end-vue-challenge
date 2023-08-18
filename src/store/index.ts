@@ -4,7 +4,7 @@ import User from "@/models/user/user-model";
 import { blogService } from "@/services/blog/blogService";
 import { userService } from "@/services/users/userService";
 import { InjectionKey } from "vue";
-import { toast } from 'vue3-toastify';
+import { toast } from "vue3-toastify";
 import { createStore, Store } from "vuex";
 import { Action, Mutation } from "./types";
 
@@ -28,7 +28,7 @@ export const store = createStore<State>({
     currentPost: {} as PostModel,
     showOnlyFavorites: false,
     logged: false,
-    currentUser: {} as User
+    currentUser: {} as User,
   },
   mutations: {
     [Mutation.toogleLoginModalShow]: (state) => {
@@ -55,7 +55,10 @@ export const store = createStore<State>({
   },
   actions: {
     [Action.SetBlogPosts]: async (context, filters) => {
-      const posts = await blogService.getAll(filters.elementsQuantity, filters.titleFIlter);
+      const posts = await blogService.getAll(
+        filters.elementsQuantity,
+        filters.titleFIlter
+      );
       context.commit(Mutation.setBlogPosts, posts);
       return posts.length;
     },
@@ -64,7 +67,7 @@ export const store = createStore<State>({
       toast.success("Post editado correctamente", {
         position: toast.POSITION.TOP_RIGHT,
         hideProgressBar: true,
-        autoClose: 1000
+        autoClose: 1000,
       });
     },
     [Action.CreatePost]: async (context, post) => {
@@ -73,14 +76,14 @@ export const store = createStore<State>({
         createdBy: store.state.currentUser.fullName,
         userPicture: store.state.currentUser.picture,
         favorite: false,
-        datePosted: new Date().toUTCString()
+        datePosted: new Date().toUTCString(),
       } as PostModel;
 
       await blogService.create(postWithUserData).then(() => {
         toast.success("Post creado correctamente", {
           position: toast.POSITION.TOP_RIGHT,
           hideProgressBar: true,
-          autoClose: 1000
+          autoClose: 1000,
         });
       });
     },
@@ -98,8 +101,8 @@ export const store = createStore<State>({
 
       const postQuantity = {
         elementsQuantity: 6,
-        titleFIlter: ''
-      }
+        titleFIlter: "",
+      };
 
       context.dispatch(Action.SetBlogPosts, postQuantity);
     },
@@ -110,8 +113,8 @@ export const store = createStore<State>({
 
       const postQuantity = {
         elementsQuantity: 6,
-        titleFIlter: ''
-      }
+        titleFIlter: "",
+      };
 
       context.dispatch(Action.SetBlogPosts, postQuantity);
     },
@@ -124,9 +127,15 @@ export const store = createStore<State>({
         toast.success("Autenticado correctamente", {
           position: toast.POSITION.TOP_RIGHT,
           hideProgressBar: true,
-          autoClose: 1000
+          autoClose: 1000,
         });
         context.commit(Mutation.toogleLoginModalShow);
+      } else {
+        toast.error("Usuario no encontrado", {
+          position: toast.POSITION.TOP_RIGHT,
+          hideProgressBar: true,
+          autoClose: 1000,
+        });
       }
     },
     [Action.CreateUser]: async (context, userModel) => {
@@ -134,12 +143,12 @@ export const store = createStore<State>({
         toast.success("Usuario creado correctamente", {
           position: toast.POSITION.TOP_RIGHT,
           hideProgressBar: true,
-          autoClose: 1000
+          autoClose: 1000,
         });
         toast.success("Inicie sesión para poder realizar cambios", {
           position: toast.POSITION.TOP_RIGHT,
           hideProgressBar: true,
-          autoClose: 5000
+          autoClose: 5000,
         });
       });
     },
@@ -152,13 +161,13 @@ export const store = createStore<State>({
       }
     },
     [Action.LogOut]: async (context) => {
-      localStorage.removeItem('currentUser');
+      localStorage.removeItem("currentUser");
       context.commit(Mutation.MarkUserAsNotLogged);
       context.commit(Mutation.RemoveCurrentUser);
       toast.success("Ha cerrado sesión correctamente", {
         position: toast.POSITION.TOP_RIGHT,
         hideProgressBar: true,
-        autoClose: 1000
+        autoClose: 1000,
       });
     },
   },

@@ -109,3 +109,26 @@
     }
   }
 }
+
+@media only screen and (max-width: 1000px) {
+  .login-view {
+    .login-wrapper-component {
+      height: auto;
+      padding: 40px 0;
+      .left-image {
+        display: none;
+        height: 100%;
+        img {
+          height: 100%;
+        }
+      }
+      .right-form {
+        .signUp {
+          h5 {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}

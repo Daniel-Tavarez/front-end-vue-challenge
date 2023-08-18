@@ -12,9 +12,31 @@
       </div>
       <div class="nav-items">
         <ul>
-          <li
-            @click="ShowAll()"
-            class="selected" id="article-li-header">
+          <li @click="ShowAll()" class="selected" id="article-li-header">
+            Articles
+          </li>
+          <li @click="showFavorites()" id="favorites-li-header">Favorites</li>
+        </ul>
+      </div>
+      <div class="action-buttons">
+        <button @click="openModal">
+          {{ store.state.logged ? "Create post" : "" }}
+        </button>
+        <p v-if="store.state.logged">|</p>
+        <button @click="showModalOrLogOut()">
+          {{ store.state.logged ? "Logout" : "Login" }}
+        </button>
+      </div>
+      <div class="responsive-button">
+        <button @click="showResponsiveHeader = !showResponsiveHeader">
+          <img :src="showResponsiveHeader ? close.href : hamburguer.href" alt="">
+        </button>
+      </div>
+    </div>
+    <div class="responsive-nav animate__animated animate__fadeInDown" v-if="showResponsiveHeader">
+      <div class="nav-items">
+        <ul>
+          <li @click="ShowAll()" class="selected" id="article-li-header">
             Articles
           </li>
           <li @click="showFavorites()" id="favorites-li-header">Favorites</li>
@@ -39,7 +61,11 @@ import { store } from "@/store";
 import { Action, Mutation } from "@/store/types";
 import { ref } from "vue";
 
+const close = new URL("@/assets/img/x.svg", import.meta.url);
+const hamburguer = new URL("@/assets/img/Star-yellow.svg", import.meta.url);
+
 const showEditModal = ref(false);
+const showResponsiveHeader = ref(false);
 
 const closeModal = (value: boolean) => {
   showEditModal.value = value;
@@ -55,15 +81,15 @@ function showModalOrLogOut() {
     : store.commit(Mutation.toogleLoginModalShow);
 }
 
-function ShowAll(){
-  document.getElementById('article-li-header')?.classList.add('selected');
-  document.getElementById('favorites-li-header')?.classList.remove('selected');
+function ShowAll() {
+  document.getElementById("article-li-header")?.classList.add("selected");
+  document.getElementById("favorites-li-header")?.classList.remove("selected");
   store.dispatch(Action.SetShowOnlyFavorites, false);
 }
 
 function showFavorites() {
-  document.getElementById('favorites-li-header')?.classList.add('selected');
-  document.getElementById('article-li-header')?.classList.remove('selected');
+  document.getElementById("favorites-li-header")?.classList.add("selected");
+  document.getElementById("article-li-header")?.classList.remove("selected");
 
   store.state.logged
     ? store.dispatch(Action.SetShowOnlyFavorites, true)

@@ -7,28 +7,28 @@
       </div>
       <div class="form-inputs">
         <div class="input">
-          <span>Title</span>
+          <p>Title</p>
           <input
             class="field"
             v-model="editedPost.title"
             placeholder="Post title" />
         </div>
         <div class="input">
-          <span>Sub title</span>
+          <p>Sub title</p>
           <textarea
             class="field textarea"
             v-model="editedPost.subTitle"
             placeholder="Post sub title" />
         </div>
         <div class="input">
-          <span>Body</span>
+          <p>Body</p>
           <textarea
             class="field textarea"
             v-model="editedPost.body"
             placeholder="Body"></textarea>
         </div>
         <div class="input">
-          <span>Monthly pay rate</span>
+          <p>Monthly pay rate</p>
           <input
             class="field"
             v-model="editedPost.monthlyPayment"
@@ -36,7 +36,7 @@
             placeholder="Monthly pay rate" />
         </div>
         <div class="input">
-          <span>Type</span>
+          <p>Type</p>
           <select id="postCategory" class="field" v-model="editedPost.type">
             <option value="0">Select post type</option>
             <option
@@ -48,7 +48,7 @@
           </select>
         </div>
         <div class="input">
-          <span>Post image URL</span>
+          <p>Post image URL</p>
           <input
             class="field"
             v-model="editedPost.image"
@@ -56,7 +56,7 @@
             placeholder="Image URL" />
         </div>
         <div class="input">
-          <span>Post image caption</span>
+          <p>Post image caption</p>
           <input
             class="field"
             v-model="editedPost.imageCaption"
@@ -64,7 +64,7 @@
             placeholder="Post image caption" />
         </div>
         <div class="input">
-          <span>Post image thumbnail</span>
+          <p>Post image thumbnail</p>
           <input
             class="field"
             v-model="editedPost.thumbNail"

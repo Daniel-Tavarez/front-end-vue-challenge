@@ -41,6 +41,11 @@
       .input {
         width: 100%;
         margin-bottom: 15px;
+        p {
+          margin-bottom: 10px;
+          font-weight: bold;
+          color: $color-dark;
+        }
         .field {
           max-width: 92%;
           width: 100%;
@@ -77,6 +82,33 @@
         font-size: 18px;
         padding: 15px 0;
         border-radius: 5px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .create-or-update-view {
+    .create-or-update-modal {
+      padding: 20px 20px 20px 30px;
+      max-height: 500px;
+      overflow-y: scroll;
+      max-width: 100%;
+      width: 100%;
+      margin: 20px;
+      min-width: auto;
+      .form-inputs {
+        width: 100%;
+        .input {
+          width: 100%;
+          margin-bottom: 15px;
+          .field {
+            max-width: 87%;
+          }
+          .textarea {
+            min-width: 87%;
+          }
+        }
       }
     }
   }
