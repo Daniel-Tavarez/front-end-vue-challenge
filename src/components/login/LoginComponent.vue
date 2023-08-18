@@ -19,7 +19,7 @@
           <div class="input" v-if="signUp">
             <input v-model="fullName" class="field" type="text" placeholder="Full name" />
           </div>
-          <div class="input">
+          <div class="input" v-if="signUp">
             <input v-model="password" class="field" type="password" placeholder="Password" />
           </div>
         </div>
@@ -35,6 +35,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import User from '@/models/user/user-model';
 import { store } from '@/store';
 import { Action, Mutation } from '@/store/types';
 import { ref } from "vue";
@@ -56,9 +57,12 @@ function signUpFc(){
   const userData = {
     email: email.value,
     fullName: fullName.value,
-    password: password.value
-  };
-  console.log('Signing up with user data:', userData);
+    password: password.value,
+    picture: 'https://s3-alpha-sig.figma.com/img/0e52/ca4c/fcf7fd9abbbd23cf3f7c9dfaa318dcea?Expires=1693180800&Signature=iWuXCgHBNUwclkZVhY5Nsloij20BBaqLxhh9hU1ht7LFN9xXidzIj79nA1Yx2y98mmJZhmQxle68kaZfh4YamCIUFYNjqXgrP0dah854WKXLDSNdg-Mz5CobldjmWg2nlLf3DlfBFJmHM8qh1qu4Eb7zu6~NZ1H02TqKJ~fZmZl8g-2299Y2d2T3-mqfdqPHd4FnTzFJ1EYEhiopMDPon5FVI8z00EKhz3Q69dCcgrAf-b0dHQ52RuWQjmwEMDpUYgag46pi9Woca0XF0coBLUZqQ~OIk7oxgx3xrylp~e98TVxLyCjl~oJkA0x~X3V31ZvkKHUkPPpQj18IbVN25w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+  } as User;
+  store.dispatch(Action.CreateUser, userData).then(() => {
+    signUpOrlogin();
+  });
 }
 
 function signUpOrlogin(){

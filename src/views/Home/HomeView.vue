@@ -16,14 +16,14 @@
         <h1>Uh oh.</h1>
         <h4>We ran into an issue, but don’t worry,</h4>
         <h4>we’ll take care of it for sure.</h4>
-        <button class="back-to-safety">Back to safety</button>
+        <button class="back-to-safety" @click="store.dispatch(Action.SetBlogPosts, postQuantity)">Back to safety</button>
       </div>
       <div class="right-content">
         <img src="../../assets/img/elements-not-found.png" alt="" />
       </div>
     </section>
     <section class="load-more" v-if="postsFavoritedOrAll.length">
-      <button>Load more</button>
+      <button @click="loadMore">Load more</button>
     </section>
   </div>
 </template>
@@ -32,13 +32,18 @@
 import PostCardComponent from "@/components/post-card/PostCardComponent.vue";
 import SearchComponent from "@/components/search/SearchComponent.vue";
 import { store } from "@/store";
-import { computed, onMounted } from "vue";
+import { Action } from '@/store/types';
+import { computed, ref } from "vue";
 
-// let posts = ref(null);
-
-onMounted(() => {
-  // posts.value = store.state.blogPosts;
+const postQuantity = ref({
+  elementsQuantity: 6,
+  titleFIlter: ''
 });
+
+function loadMore(){
+  postQuantity.value.elementsQuantity += 3;
+  store.dispatch(Action.SetBlogPosts, postQuantity.value);
+}
 
 const postsFavoritedOrAll = computed(() => {
   return store.state.showOnlyFavorites

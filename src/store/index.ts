@@ -54,9 +54,10 @@ export const store = createStore<State>({
     },
   },
   actions: {
-    [Action.SetBlogPosts]: async (context) => {
-      const posts = await blogService.getAll();
+    [Action.SetBlogPosts]: async (context, filters) => {
+      const posts = await blogService.getAll(filters.elementsQuantity, filters.titleFIlter);
       context.commit(Mutation.setBlogPosts, posts);
+      return posts.length;
     },
     [Action.UpdatePost]: async (context, post) => {
       await blogService.update(post.id, post);
@@ -64,6 +65,23 @@ export const store = createStore<State>({
         position: toast.POSITION.TOP_RIGHT,
         hideProgressBar: true,
         autoClose: 1000
+      });
+    },
+    [Action.CreatePost]: async (context, post) => {
+      const postWithUserData = {
+        ...post,
+        createdBy: store.state.currentUser.fullName,
+        userPicture: store.state.currentUser.picture,
+        favorite: false,
+        datePosted: new Date().toUTCString()
+      } as PostModel;
+
+      await blogService.create(postWithUserData).then(() => {
+        toast.success("Post creado correctamente", {
+          position: toast.POSITION.TOP_RIGHT,
+          hideProgressBar: true,
+          autoClose: 1000
+        });
       });
     },
     [Action.GetPostById]: async (context, id) => {
@@ -77,19 +95,32 @@ export const store = createStore<State>({
       const post = await blogService.getById(postId);
       post.favorite = true;
       await blogService.update(postId, post);
-      context.dispatch(Action.SetBlogPosts);
+
+      const postQuantity = {
+        elementsQuantity: 6,
+        titleFIlter: ''
+      }
+
+      context.dispatch(Action.SetBlogPosts, postQuantity);
     },
     [Action.SetPostUnFavorite]: async (context, postId) => {
       const post = await blogService.getById(postId);
       post.favorite = false;
       await blogService.update(postId, post);
-      context.dispatch(Action.SetBlogPosts);
+
+      const postQuantity = {
+        elementsQuantity: 6,
+        titleFIlter: ''
+      }
+
+      context.dispatch(Action.SetBlogPosts, postQuantity);
     },
     [Action.LogUser]: async (context, userModel) => {
       const user = await userService.getByEmail(userModel.email);
       if (user[0]) {
         localStorage.setItem("currentUser", JSON.stringify(user[0]));
         context.commit(Mutation.MarkUserAsLogged);
+        context.commit(Mutation.SetCurrentUser, user[0]);
         toast.success("Autenticado correctamente", {
           position: toast.POSITION.TOP_RIGHT,
           hideProgressBar: true,
@@ -97,6 +128,20 @@ export const store = createStore<State>({
         });
         context.commit(Mutation.toogleLoginModalShow);
       }
+    },
+    [Action.CreateUser]: async (context, userModel) => {
+      await userService.create(userModel).then(() => {
+        toast.success("Usuario creado correctamente", {
+          position: toast.POSITION.TOP_RIGHT,
+          hideProgressBar: true,
+          autoClose: 1000
+        });
+        toast.success("Inicie sesión para poder realizar cambios", {
+          position: toast.POSITION.TOP_RIGHT,
+          hideProgressBar: true,
+          autoClose: 5000
+        });
+      });
     },
     [Action.GetCurrentUser]: async (context) => {
       const user = localStorage.getItem("currentUser");

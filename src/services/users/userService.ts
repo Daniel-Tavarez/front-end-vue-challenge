@@ -10,6 +10,6 @@ export const userService = {
   },
 
   async create(data: any) {
-    return await userBaseService.post("blogs", data);
+    return await userBaseService.post("users", data);
   },
 };

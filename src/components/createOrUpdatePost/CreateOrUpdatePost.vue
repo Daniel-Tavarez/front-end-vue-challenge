@@ -3,7 +3,7 @@
     <div class="create-or-update-modal">
       <button class="close-modal-button" @click="closeModal()"></button>
       <div class="title">
-        <h2>Edit post</h2>
+        <h2>{{ props.create ? "Create post" : "Update post" }}</h2>
       </div>
       <div class="form-inputs">
         <div class="input">
@@ -73,7 +73,9 @@
         </div>
       </div>
       <div class="createOrUpdate-button">
-        <button @click="updatePost">Update</button>
+        <button @click="props.create ? create() : updatePost()">
+          {{ props.create ? "Create" : "Update" }}
+        </button>
       </div>
     </div>
   </div>
@@ -86,7 +88,7 @@ import { Action } from "@/store/types";
 import { ref, onMounted, reactive, defineEmits } from "vue";
 import { defineProps } from "vue";
 
-const emits = defineEmits(['closeModal', 'refetchPostInfo']);
+const emits = defineEmits(["closeModal", "refetchPostInfo"]);
 
 const postTypes = [
   { label: "Básico", value: PostType.Basic },
@@ -96,21 +98,23 @@ const postTypes = [
 
 const props = defineProps<{
   post: PostModel;
+  create: boolean;
 }>();
 
 const editedPost = reactive({ ...props.post });
 
 const closeModal = () => {
-  emits('closeModal', false);
+  emits("closeModal", false);
 };
 
 function updatePost() {
   store.dispatch(Action.UpdatePost, editedPost);
-  emits('refetchPostInfo', false);
+  emits("refetchPostInfo", false);
   closeModal();
 }
 function create() {
-  debugger;
-  const a = editedPost;
+  store.dispatch(Action.CreatePost, editedPost);
+  emits("refetchPostInfo", false);
+  closeModal();
 }
 </script>

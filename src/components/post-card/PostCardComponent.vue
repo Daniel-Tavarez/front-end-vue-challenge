@@ -11,16 +11,15 @@
       </button>
     </div>
     <div class="image">
-      <!-- <img src="../../assets/img/3rd-picture-clipped.png" alt="" /> -->
       <img :src="post.thumbNail" alt="" />
     </div>
     <div class="post-content" @click="goToDetail(post.id)">
       <div class="content">
         <div class="title">
-          <h2>{{ post.title }}</h2>
+          <h2>{{ truncatedTitle }}</h2>
         </div>
         <div class="description">
-          <p>{{ truncatedText }}</p>
+          <p>{{ truncatedSubtitle }}</p>
         </div>
       </div>
       <div class="user-owner">
@@ -29,16 +28,18 @@
           <h4>{{ upperCaseFullName }}</h4>
         </div>
         <div class="date-posted">
-          <h4>{{ post.datePosted }}</h4>
+          <h4>{{ formattedDate }}</h4>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import { PostType } from "@/enums/postType";
 import PostModel from "@/models/post/post-model";
 import { store } from "@/store";
 import { Action, Mutation } from "@/store/types";
+import moment from 'moment';
 import { computed, defineProps } from "vue";
 import { useRouter } from "vue-router";
 
@@ -62,20 +63,33 @@ function setPostFavoriteOrUnfavorite(favorite: boolean, postId: number) {
 }
 
 const classColor: Record<number, string> = {
-  1: "green",
-  2: "yellow",
-  3: "red",
+  [PostType.Basic]: "green",
+  [PostType.Intermediate]: "yellow",
+  [PostType.Pro]: "red",
 };
 
 const goToDetail = (id: number) => {
   route.push(`/blog/${id}`);
 };
 
-const truncatedText = computed(() => {
+const truncatedSubtitle = computed(() => {
   if (props.post.subTitle.length > 90) {
     return props.post.subTitle.slice(0, 90) + "...";
   }
   return props.post.subTitle;
+});
+
+const truncatedTitle = computed(() => {
+  if (props.post.title.length > 70) {
+    return props.post.title.slice(0, 70) + "...";
+  }
+  return props.post.title;
+});
+
+const formattedDate = computed(() => {
+  const date = new Date(props.post.datePosted);
+  const formattedDate = moment(date).format("MMM D").toUpperCase();
+  return formattedDate;
 });
 
 const classMonthlyPaymentColor = computed(() => {

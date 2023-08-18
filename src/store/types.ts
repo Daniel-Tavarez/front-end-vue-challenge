@@ -15,7 +15,9 @@ export enum Action {
     SetPostFavorite = 'SetPostFavorite',
     SetPostUnFavorite = 'SetPostUnFavorite',
     LogUser = 'LogUser',
+    CreateUser = 'CreateUser',
     GetCurrentUser = 'GetCurrentUser',
     LogOut = 'LogOut',
-    UpdatePost = 'UpdatePost'
+    UpdatePost = 'UpdatePost',
+    CreatePost = 'CreatePost',
 }

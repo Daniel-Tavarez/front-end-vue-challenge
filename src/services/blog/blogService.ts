@@ -1,8 +1,8 @@
 import { blogBaseService } from "@/services/base/blogBaseService";
 
 export const blogService = {
-  async getAll() {
-    return await blogBaseService.get("blogs");
+  async getAll(elementsQuantity: number, filterByTitle: string ) {
+    return await blogBaseService.get(`blogs${elementsQuantity ? `?_limit=${elementsQuantity}` : ''}${filterByTitle && `?title_like=${filterByTitle}`}`);
   },
 
   async getById(id: number) {
