@@ -22,7 +22,7 @@ yarn lint
 
 ### to run the blog DB
 ```
-json-server --watch blogs.json
+json-server --watch blogs.json --port 3000
 ```
 
 ### to run the Users DB
