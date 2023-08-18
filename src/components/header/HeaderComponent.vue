@@ -29,7 +29,7 @@
       </div>
       <div class="responsive-button">
         <button @click="showResponsiveHeader = !showResponsiveHeader">
-          <img :src="showResponsiveHeader ? close.href : hamburguer.href" alt="">
+          <img :class="!showResponsiveHeader ? 'hamburguer': ''" :src="showResponsiveHeader ? close.href : hamburguer.href" alt="">
         </button>
       </div>
     </div>
@@ -62,7 +62,7 @@ import { Action, Mutation } from "@/store/types";
 import { ref } from "vue";
 
 const close = new URL("@/assets/img/x.svg", import.meta.url);
-const hamburguer = new URL("@/assets/img/Star-yellow.svg", import.meta.url);
+const hamburguer = new URL("@/assets/img/hamburguer.png", import.meta.url);
 
 const showEditModal = ref(false);
 const showResponsiveHeader = ref(false);

@@ -26,7 +26,7 @@
       "image": "https://s3-alpha-sig.figma.com/img/14c1/6c66/c47e7223c1cf076c4d288c17d9e812f6?Expires=1693180800&Signature=K~M7fLn9dYf~qTohxG4zSJfgoYcNgquLAL7BfjMjdVsAQkxoxgbX-g~oCLKNKTMHPoKzppagCRmO-3xMcCWHwJ-IpHBSBrwYu99YGe~iXoGeP1x4jAY8dTwXLRayw03wsSOE-Cx541DJ-Y9V89icCe73ItZYIm3MSYxVlCRpWHX8vVMkCue6U8Rv31WvkZU~vtkt2mYLvqzme~cY59-1D-7rRYIyjD6NHkoCpJD1dbuMD-PO2c8xEKs99N2QXDNJ2EEbfeptszV4bry6sZSIjFbv8-xRP5K0IFNj9MTWdTdQTdfWqKqjGTv4zHdhilR9DCe~OTs4iLhvbmT3MDJLGg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
       "imageCaption": "Collaboration tools are crucial for remote teams.",
       "monthlyPayment": 11,
-      "favorite": false,
+      "favorite": true,
       "type": 2,
       "id": 2
     },

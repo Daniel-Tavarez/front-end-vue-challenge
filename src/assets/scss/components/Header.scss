@@ -65,9 +65,17 @@
         button {
           background-color: transparent;
           border: none;
+          width: 35px;
+          height: 35px;
           img {
-            width: 20px;
-            height: 20px;
+            margin-left: 5px;
+            width: 100%;
+            height: 100%;
+          }
+          .hamburguer {
+            margin-left: 0;
+            width: 35px;
+            height: 35px;
           }
         }
       }
