@@ -1,23 +1,23 @@
-import { apiService } from "@/services/apiService";
+import { blogBaseService } from "@/services/base/blogBaseService";
 
 export const blogService = {
   async getAll() {
-    return await apiService.get("blogs");
+    return await blogBaseService.get("blogs");
   },
 
   async getById(id: number) {
-    return await apiService.get(`blogs/${id}`);
+    return await blogBaseService.get(`blogs/${id}`);
   },
 
   async create(data: any) {
-    return await apiService.post("blogs", data);
+    return await blogBaseService.post("blogs", data);
   },
 
   async update(id: number, data: any) {
-    return await apiService.put("blogs", id, data);
+    return await blogBaseService.put("blogs", id, data);
   },
 
   async delete(id: number) {
-    return await apiService.delete("blogs", id);
+    return await blogBaseService.delete("blogs", id);
   },
 };

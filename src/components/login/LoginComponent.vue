@@ -36,7 +36,7 @@
 </template>
 <script setup lang="ts">
 import { store } from '@/store';
-import { Mutation } from '@/store/types';
+import { Action, Mutation } from '@/store/types';
 import { ref } from "vue";
 
 const signUp = ref(false);
@@ -49,7 +49,7 @@ function login(){
     email: email.value,
     password: password.value
   };
-  console.log('Logging in with user data:', userData);
+  store.dispatch(Action.LogUser, userData);
 }
 
 function signUpFc(){

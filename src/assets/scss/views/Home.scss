@@ -7,6 +7,38 @@
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 30px;
   }
+  .elements-not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 100px 0;
+    gap: 100px;
+    .left-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      h1 {
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+      h4 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        color: $gray-700;
+      }
+      .back-to-safety {
+        cursor: pointer;
+        margin-top: 20px;
+        background-color: $color-blue;
+        font-weight: bold;
+        color: $white;
+        font-size: 16px;
+        border-radius: 6px;
+        padding: 13px 20px;
+        border: none;
+      }
+    }
+  }
   .load-more {
     margin-top: 100px;
     display: flex;

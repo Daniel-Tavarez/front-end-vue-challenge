@@ -1,22 +1,82 @@
 <template>
-    <div>
-        <h1>{{store.state.currentPost.title}}</h1>
+  <section class="post-detail-container">
+    <CreateOrUpdatePost
+      :post="currentPost"
+      @closeModal="closeModal"
+      @refetchPostInfo="refetchPostInfo"
+      v-if="showEditModal" />
+    <div class="edit-button-wrapper">
+      <button class="edit" @click="showEditModal = true">Edit post</button>
     </div>
+    <div class="title">
+      <h1>{{ currentPost.title }}</h1>
+    </div>
+    <div class="sub-title">
+      <h3>{{ currentPost.subTitle }}</h3>
+    </div>
+    <div class="post">
+      <div class="user-info">
+        <div class="info">
+          <div class="picture">
+            <img :src="currentPost.userPicture" alt="" />
+          </div>
+          <div class="name-and-date">
+            <h4>{{ currentPost.createdBy }}</h4>
+            <h5>Published on {{ currentPost.datePosted }}</h5>
+          </div>
+        </div>
+        <div class="social-media">
+          <h4>SHARE:</h4>
+          <div class="media-logos">
+            <img src="../../assets/img/instagram-logo.svg" alt="" />
+            <img src="../../assets/img/facebook-logo.svg" alt="" />
+            <img src="../../assets/img/twitter-logo.svg" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="post-image-with-caption">
+        <img :src="currentPost.image" alt="" />
+        <h4>{{ currentPost.imageCaption }}</h4>
+      </div>
+      <div class="post-body">
+        <h4>{{ currentPost.body }}</h4>
+      </div>
+    </div>
+  </section>
 </template>
 
-<script setup>
-import { store } from '@/store';
-import { Action } from '@/store/types';
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+<script setup lang="ts">
+import CreateOrUpdatePost from "@/components/createOrUpdatePost/CreateOrUpdatePost.vue";
+import PostModel from "@/models/post/post-model";
+import { store } from "@/store";
+import { Action } from "@/store/types";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute(); 
-const currentPost = ref(null);
+const route = useRoute();
+const currentPost = ref({} as PostModel);
+
+const showEditModal = ref(false);
+
+const closeModal = (value: boolean) => {
+  showEditModal.value = value;
+};
+
+const refetchPostInfo = (value: any) => {
+  setTimeout(() => {
+    
+    fetchAndOpenModal();
+  }, 1000);
+}
+
+const fetchAndOpenModal = async () => {
+  const postId = route.params.id;
+  store.dispatch(Action.GetPostById, postId).then((post) => {
+    currentPost.value = post;
+  });
+};
 
 onMounted(() => {
-  const postId = route.params.id;
-  store.dispatch(Action.GetPostById, postId).then(() => {
-    currentPost.value = store.state.currentPost;
-  });
+  fetchAndOpenModal();
 });
 </script>

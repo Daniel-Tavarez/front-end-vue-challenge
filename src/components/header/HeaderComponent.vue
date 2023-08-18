@@ -17,17 +17,22 @@
         </ul>
       </div>
       <div class="action-buttons">
-        <button @click="store.commit(Mutation.toogleLoginModalShow)">
-          Login
+        <button @click="showModalOrLogOut()">
+          {{store.state.logged ? 'Logout' : 'Login'}}
         </button>
       </div>
     </div>
-  </header>
+  </header> 
 </template>
 
 <script setup lang="ts">
 import { store } from "@/store";
 import { Action, Mutation } from "@/store/types";
+
+function showModalOrLogOut() {
+  store.state.logged ? store.dispatch(Action.LogOut) :
+  store.commit(Mutation.toogleLoginModalShow);
+}
 
 function showFavorites() {
   store.state.logged

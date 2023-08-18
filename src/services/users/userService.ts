@@ -1,12 +1,15 @@
-import { apiService } from "@/services/apiService";
+import { userBaseService } from "@/services/base/userBaseService";
 
-export const blogService = {
+export const userService = {
+  async getAll() {
+    return await userBaseService.get("users");
+  },
 
-  async getById(id: number) {
-    return await apiService.get(`blogs/${id}`);
+  async getByEmail(email: string) {
+    return await userBaseService.get(`users/${email}`);
   },
 
   async create(data: any) {
-    return await apiService.post("blogs", data);
+    return await userBaseService.post("blogs", data);
   },
 };
